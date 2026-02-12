@@ -46,4 +46,27 @@ Vagrant.configure("2") do |config|
         splunk/splunk:latest
     SHELL
   end
+
+  config.vm.define "victim-pc" do |win|
+    win.vm.box = "StefanScherer/windows_10"
+    win.vm.hostname = "victim-pc"
+    
+    win.vm.communicator = "winrm"
+
+    win.vm.network "private_network", ip: "10.0.1.20"
+
+    win.vm.provider "vmware_desktop" do |v|
+      v.gui = true
+      v.memory = 4096
+      v.cpus = 2
+      v.allowlist_verified = true
+    end
+
+    win.vm.provision "shell", inline: <<-SHELL
+
+      Set-NetFirewallProfile -Profile Private,Public,Domain -Enabled False
+
+      Test-Connection -ComputerName 10.0.1.10 -Count 4
+    SHELL
+  end
 end
