@@ -6,7 +6,7 @@ Building a fully automated Security Operations Center (SOC) environment using **
 
 ## 🛠️ Tech Stack & Tools
 
-- **Virtualization:** VMware Workstation Pro
+- **Virtualization:** Oracle VirtualBox
 - **Orchestration:** Vagrant
 - **Containerization:** Docker
 - **SIEM:** Splunk Enterprise
@@ -21,10 +21,11 @@ Building a fully automated Security Operations Center (SOC) environment using **
 
 ## 🔧 How to run
 
-1. Install Vagrant & VMware Workstation.
+1. Install Vagrant & Oracle VirtualBox.
 2. Clone this repo.
 3. Run `vagrant up`.
-4. Access Splunk at `http://localhost:8000`.
+4. Access Splunk at `http://localhost:8000` or go to Windows VM and go to `10.0.1.10:8000` and login with `admin:CyberLab123!`.
+5. The Windows machine will open with a GUI interface in VirtualBox
 
 ## 🔧 Troubleshooting
 
@@ -32,12 +33,12 @@ Building a fully automated Security Operations Center (SOC) environment using **
   - If the container didn't start correctly, try re-provisioning the machine (this re-runs the installation scripts): `vagrant provision`
 
 - Issue: Network Timeout
-  - If localhost:8000 is unreachable, ensure the port forwarding is active by reloading the network config: `vagrant reload`
+  - If Splunk server is unreachable, ensure the port forwarding is active by reloading the network config: `vagrant reload soc-server`
 
 - Manual Debugging Connect to the machine to check Docker logs:
 
 ```
-vagrant ssh
+vagrant ssh soc-server
 sudo docker ps -a
 sudo docker logs splunk
 ```
